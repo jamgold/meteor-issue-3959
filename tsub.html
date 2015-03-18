@@ -1,0 +1,23 @@
+<head>
+  <title>tsub</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> Template.dynamic template=useTemplate}}
+</body>
+
+<template name="hello">
+	<button>Change Template Subscribe Method</button>
+	<div>
+		{{#each images}}
+			<img src="{{thumbnail}}">
+		{{/each}}
+	</div>
+	<pre style="white-space: pre-line">{{errorMessage}}</pre>
+</template>
+
+<template name="changeMethod">
+	<h3>Use the new Template.subscribe method <input type="checkbox" checked={{checked}}> </h3>
+</template>
