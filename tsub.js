@@ -1,5 +1,5 @@
 if (Meteor.isClient) {
-  var remoteUrl = 'http://mongodb-image.devel.buzzledom.com';
+  var remoteUrl = '/';
 
   Session.setDefault('useNewTemplateSubscribe', true);
   Session.setDefault('useTemplate','hello');
@@ -17,12 +17,13 @@ if (Meteor.isClient) {
     Session.set('errorMessage','');
 
     if(Session.get('useNewTemplateSubscribe'))
-      this.subscribe('thumbnails',0,{
-        connection: Meteor.remoteConnection,
+      this.view.subscribe(['thumbnails', 0, {
         onError: function(err) {
           console.log(err);
           Session.set('errorMessage', EJSON.stringify(err,{indent: true}));
         }
+      }],{
+        connection: Meteor.remoteConnection
       });
     else
       this.dbimagesHandle = Meteor.remoteConnection.subscribe('thumbnails',0);
@@ -68,5 +69,8 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+    Meteor.publish("thumbnails", function () {
+      return [];
+    });
   });
 }
